@@ -1,0 +1,11 @@
+x=0
+
+clang -O$x -g -emit-llvm -S *.c
+
+llvm-link -S -o stencil.ll main.ll probe_heat.ll util.ll
+
+llc -O$x stencil.ll
+
+clang -O$x -lm stencil.s -o stencil -L./exlib/ -lSZ -lzstd
+
+rm stencil.s main.ll probe_heat.ll util.ll
