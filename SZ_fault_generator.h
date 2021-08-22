@@ -10,15 +10,11 @@
 
 typedef struct Fault_Injector_ConfigsSt
 {
-    // If to perform FI.
-    // A condition variable.
-    int FI;
     
-    // inject faults in which variables.
-    int sim_atoms_r;
-    int sim_atoms_p;
-    int sim_atoms_f;
-    int sim_atoms_U;
+    // inject faults in which position.
+    int x;
+    int y;
+    int z;
 
     // inject faults in which iterations.
     //     In CoMD, the injected iteration should
@@ -156,45 +152,30 @@ Fault_Injector_Configs read_fault_injector_config()
             temp1[index] = '\0';    // why it is out of bound but still can be accessed????? 
                                     // Ok I see. I forgot '\0' in C, sorry~
             
-            // Get config.FI from given .config file.
-            if(strstr(temp1, "FI="))
+
+	        // Get config.sim_atoms_r from given .config file.
+            if(strstr(temp1, "x="))
             {
-                char *temp2 = strstr(temp1, "=");
-                temp2++;
-                config.FI = atoi(temp2);
+	            char *temp2 = strstr(temp1, "=");
+		        temp2++;
+		        config.x = atoi(temp2);
             }
 
-	    // Get config.sim_atoms_r from given .config file.
-            if(strstr(temp1, "->r="))
-            {
-	        char *temp2 = strstr(temp1, "=");
-		temp2++;
-		config.sim_atoms_r = atoi(temp2);
-            }
+	        // Get config.sim_atoms_p from given .config file.
+	        if(strstr(temp1, "y="))
+	        {
+		        char *temp2 = strstr(temp1, "=");
+		        temp2++;
+		        config.y = atoi(temp2);
+	        }
 
-	    // Get config.sim_atoms_p from given .config file.
-	    if(strstr(temp1, "->p="))
-	    {
-		char *temp2 = strstr(temp1, "=");
-		temp2++;
-		config.sim_atoms_p = atoi(temp2);
-	    }
-
-	    // Get config.sim_atoms_f from given .config file.
-	    if(strstr(temp1, "->f="))
-	    {
-		char *temp2 = strstr(temp1, "=");
-		temp2++;
-		config.sim_atoms_f = atoi(temp2);
-	    }
-
-	    // Get config.sim_atoms_U from given .config file.
-	    if(strstr(temp1, "->U="))
-	    {
-		char *temp2 = strstr(temp1, "=");
-		temp2++;
-		config.sim_atoms_U = atoi(temp2);
-	    }
+	        // Get config.sim_atoms_f from given .config file.
+	        if(strstr(temp1, "z="))
+	        {
+		        char *temp2 = strstr(temp1, "=");
+		        temp2++;
+		        config.z = atoi(temp2);
+	        }
 
             // Get config.iters from given .config file.
             if(strstr(temp1, "injected_iteration="))
