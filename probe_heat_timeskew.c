@@ -12,6 +12,7 @@
  *    2.  Split the number of iterations into smaller runs where each run
  *        conforms to the above rule.
  */
+#include <stdio.h>
 #include "common.h"
 #define MAX(x,y) (x > y ? x : y)
 
@@ -78,10 +79,11 @@ void StencilProbe(double *A0, double *Anext, int nx, int ny, int nz,
 	  blockMax_x = MAX(1, ii + tx + t * pos_x_slope);
 	  blockMax_y = MAX(1, jj + ty + t * pos_y_slope);
 	  blockMax_z = MAX(1, kk + tz + t * pos_z_slope);
-	  
+	  printf("now step is t = %d.\n",t);
 	  for (k=blockMin_z; k < blockMax_z; k++) {
 	    for (j=blockMin_y; j < blockMax_y; j++) {
 	      for (i=blockMin_x; i < blockMax_x; i++) {
+          printf("now space is z=%d, y=%d, x=%d:\n",k,j,i);
 		myAnext[Index3D (nx, ny, i, j, k)] = 
 		  myA0[Index3D (nx, ny, i, j, k+1)] +
 		  myA0[Index3D (nx, ny, i, j, k-1)] +
@@ -90,6 +92,11 @@ void StencilProbe(double *A0, double *Anext, int nx, int ny, int nz,
 		  myA0[Index3D (nx, ny, i+1, j, k)] +
 		  myA0[Index3D (nx, ny, i-1, j, k)]
 		  - 6.0 * myA0[Index3D (nx, ny, i, j, k)] / (fac*fac);
+
+		  printf("%lf = \n\t%lf+%lf+%lf+%lf+%lf+%lf \n\t-6.0* %lf /(%lf)^2\n",myAnext[Index3D (nx, ny, i, j, k)],
+	          myA0[Index3D (nx, ny, i, j, k + 1)],myA0[Index3D (nx, ny, i, j, k - 1)],myA0[Index3D (nx, ny, i, j + 1, k)],
+	          myA0[Index3D (nx, ny, i, j - 1, k)],myA0[Index3D (nx, ny, i + 1, j, k)],myA0[Index3D (nx, ny, i - 1, j, k)],
+	          myA0[Index3D (nx, ny, i, j, k)] ,fac);
 	      }
 	    }
 	  }

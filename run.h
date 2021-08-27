@@ -1,3 +1,3 @@
-#define NUM_TRIALS 5
+#define NUM_TRIALS 1
 #define CUTOFF 4096 
 

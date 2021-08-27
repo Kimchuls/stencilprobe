@@ -1,6 +1,7 @@
 #define ds 1
 #include "run.h"
 #include "common.h"
+#include <stdio.h>
 
 #define idx(_i,_j,_k,_nx,_ny,_nz) ((_i)+(_nx)*((_j)+(_ny)*(_k)))
 
