@@ -8,6 +8,7 @@
 #include "common.h"
 #include "util.h"
 #include "cycle.h"
+#include <unistd.h>
 #ifdef HAVE_PAPI
 #include <papi.h>
 #endif
@@ -59,8 +60,21 @@ int main(int argc,char *argv[])
   printf("USING TIMER: %s \t  SECONDS PER TICK:%g \n", TIMER_DESC, spt);
   
   for (i=0;i<NUM_TRIALS;i++) {
+#ifdef RANDOMVALUES
+	srand(time(0));
+	printf("RANDOM = TRUE\n");
+#else
+	printf("RANDOM = FALSE\n");
+#endif
     /* initialize arrays to all ones */
     StencilInit(nx,ny,nz,Anext);
+    // sleep(5);
+// #ifdef RANDOMVALUES
+// 	srand(time(0));
+// 	printf("RANDOM = TRUE\n");
+// #else
+// 	printf("RANDOM = FALSE\n");
+// #endif
     StencilInit(nx,ny,nz,A0);
 #ifdef CIRCULARQUEUEPROBE
     if (timesteps > 1) {                                                                                                                      

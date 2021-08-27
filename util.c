@@ -7,6 +7,7 @@
 #include "util.h"
 #include "cycle.h"
 #include <unistd.h>
+#include <time.h>
 
 
 
@@ -22,8 +23,11 @@ void StencilInit(int nx,int ny,int nz, /* size of the array */
 
   for(i=0;i<last;i++) 
 #ifdef RANDOMVALUES
+	// printf("RANDOM = TRUE\n");
+	
 	A[i]=(float)rand()/RAND_MAX;
 #else
+	// printf("RANDOM = FALSE\n");
 	A[i]=1.0;
 #endif
 }

@@ -16,6 +16,7 @@ void walk3(double* A[], int nx, int ny, int nz,
     double fac = A[0][0];
     
     for (t=t0;t<t1;t++) {
+      printf("now step is t = %d.\n",t0);
       for (z=z0+(t-t0)*dz0;z<z1+(t-t0)*dz1;z++) {
 	for (y=y0+(t-t0)*dy0;y<y1+(t-t0)*dy1;y++) {
 	  for (x=x0+(t-t0)*dx0;x<x1+(t-t0)*dx1;x++) {
